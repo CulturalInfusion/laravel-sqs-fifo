@@ -4,16 +4,17 @@ namespace CulturalInfusion\LaravelSqsFifo\Services;
 
 use Aws\Sqs\SqsClient;
 use Illuminate\Support\Arr;
+use Illuminate\Queue\Connectors\SqsConnector;
 
-class SqsFifoConnector extends \Illuminate\Queue\Connectors\SqsConnector
+class SqsFifoConnector extends SqsConnector
 {
     /**
      * Establish a queue connection.
      *
      * @param  array  $config
-     * @return \Illuminate\Queue\SqsQueue
+     * @return SqsFifoQueue
      */
-    public function connect($config)
+    public function connect(array $config): SqsFifoQueue
     {
         $config = $this->getDefaultConfiguration($config);
 

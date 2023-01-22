@@ -13,7 +13,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->afterResolving('queue', function ($manager) {
             $manager->addConnector('sqsfifo', function () {
@@ -27,7 +27,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         AboutCommand::add('Laravel SQS FIFO', fn () => [
             'Support' => 'Queue driver for SQS FIFO, with flexible endpoint structure'

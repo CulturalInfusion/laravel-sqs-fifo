@@ -2,8 +2,8 @@
 
 namespace CulturalInfusion\LaravelSqsFifo\Tests;
 
-use CulturalInfusion\LaravelSqsFifo\ServiceProvider;
-use CulturalInfusion\LaravelSqsFifo\Services\SqsFifoConnector;
+use CulturalInfusion\LaravelSqsFifo\{ServiceProvider, Services\SqsFifoConnector};
+use Illuminate\Container\Container;
 use Illuminate\Queue\Capsule\Manager as Capsule;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionMethod;
@@ -14,16 +14,16 @@ class TestCase extends BaseTestCase
     /**
      * The Illuminate Container used by the queue.
      *
-     * @var \Illuminate\Container\Container
+     * @var Container
      */
-    protected $app;
+    protected Container $app;
 
     /**
      * The Queue Capsule instance for the tests.
      *
-     * @var \Illuminate\Queue\Capsule\Manager
+     * @var Capsule
      */
-    protected $queue;
+    protected Capsule $queue;
 
     /**
      * Initial setup for all tests.
@@ -43,7 +43,7 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    public function setUpCapsule()
+    public function setUpCapsule(): void
     {
         $queue = new Capsule();
         $queue->setAsGlobal();
@@ -59,7 +59,7 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    public function registerServiceProvider()
+    public function registerServiceProvider(): void
     {
         $provider = new ServiceProvider($this->app);
 
@@ -71,7 +71,7 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    public function setUpQueueConnection()
+    public function setUpQueueConnection(): void
     {
         $queue = $this->queue;
         
@@ -110,7 +110,7 @@ class TestCase extends BaseTestCase
      *
      * @return mixed
      */
-    protected function callRestrictedMethod($object, $method, array $args = [])
+    protected function callRestrictedMethod($object, $method, array $args = []): mixed
     {
         $reflectionMethod = new ReflectionMethod($object, $method);
         $reflectionMethod->setAccessible(true);
@@ -127,7 +127,7 @@ class TestCase extends BaseTestCase
      *
      * @return mixed
      */
-    protected function getRestrictedValue($object, $property)
+    protected function getRestrictedValue($object, $property): mixed
     {
         $reflectionProperty = new ReflectionProperty($object, $property);
         $reflectionProperty->setAccessible(true);
@@ -145,7 +145,7 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function setRestrictedValue($object, $property, $value)
+    protected function setRestrictedValue($object, $property, $value): void
     {
         $reflectionProperty = new ReflectionProperty($object, $property);
         $reflectionProperty->setAccessible(true);

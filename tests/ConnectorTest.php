@@ -3,8 +3,7 @@
 namespace CulturalInfusion\LaravelSqsFifo\Tests;
 
 use InvalidArgumentException;
-use CulturalInfusion\LaravelSqsFifo\Services\SqsFifoQueue;
-use CulturalInfusion\LaravelSqsFifo\Services\SqsFifoConnector;
+use CulturalInfusion\LaravelSqsFifo\{Services\SqsFifoConnector, SqsFifoQueue};
 
 class ConnectorTest extends TestCase
 {

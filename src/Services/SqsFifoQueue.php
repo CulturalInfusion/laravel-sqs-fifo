@@ -2,6 +2,8 @@
 
 namespace CulturalInfusion\LaravelSqsFifo\Services;
 
+use Aws\Sqs\SqsClient;
+use Exception;
 use Illuminate\Queue\SqsQueue;
 
 class SqsFifoQueue extends SqsQueue
@@ -11,46 +13,46 @@ class SqsFifoQueue extends SqsQueue
      *
      * @var string
      */
-    protected $message_group_id;
+    protected string $message_group_id;
 
     /**
      * The queue name suffix.
      *
      * @var string
      */
-    protected $queue_name_prefix;
+    protected string $queue_name_prefix;
 
     /**
      * The queue name suffix.
      *
      * @var string
      */
-    protected $queue;
+    protected string $queue;
 
     /**
      * The queue name suffix.
      *
      * @var string
      */
-    private $suffix;
+    private string $suffix;
 
     /**
      * Create a new Amazon SQS queue instance.
      *
-     * @param  \Aws\Sqs\SqsClient  $sqs
+     * @param  SqsClient  $sqs
      * @param  string  $default
      * @param  string  $prefix
      * @param  string  $suffix
-     * @param  bool  $dispatchAfterCommit
+     * @param  string  $message_group_id
      * @return void
      */
     public function __construct(
-        $sqs,
-        $default,
-        $prefix = '',
-        $suffix = '',
-        $message_group_id = null,
-        $queue_name_prefix = ''
+        SqsClient $sqs,
+        string $default,
+        string $prefix = '',
+        string $suffix = '',
+        string $message_group_id = null,
+        string $queue_name_prefix = ''
     ) {
         parent::__construct($sqs, $default, $prefix);
         $this->message_group_id = $message_group_id;
@@ -64,7 +66,7 @@ class SqsFifoQueue extends SqsQueue
      * @param  string|null  $queue
      * @return string
      */
-    public function getQueue($queue)
+    public function getQueue($queue): string
     {
         $queue = $queue ?: $this->default;
         $queue = sprintf('%s%s%s', $this->queue_name_prefix, $queue, '.fifo');
@@ -77,9 +79,9 @@ class SqsFifoQueue extends SqsQueue
      * @param  string  $payload
      * @param  string|null  $queue
      * @param  array  $options
-     * @return mixed
+     * @return string|null
      */
-    public function pushRaw($payload, $queue = null, $options = [])
+    public function pushRaw($payload, $queue = null, $options = []): string|null
     {
         $response = $this->sqs->sendMessage([
             'QueueUrl' => $this->getQueue($queue),
@@ -94,10 +96,10 @@ class SqsFifoQueue extends SqsQueue
     /**
      * SQS FIFO does not support DelaySeconds currently.
      *
-     * @throw  \Exception
+     * @throw  Exception
      */
-    public function later($delay, $job, $data = '', $queue = null)
+    public function later($delay, $job, $data = '', $queue = null): Exception
     {
-        throw new \Exception("Cannot support DelaySeconds for FIFO queues.");
+        throw new Exception("Cannot support DelaySeconds for FIFO queues.");
     }
 }
