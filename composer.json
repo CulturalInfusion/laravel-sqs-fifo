@@ -1,5 +1,5 @@
 {
-  "name": "culturalinfusion/laravel-sqs-fifo",
+  "name": "alibayat/laravel-sqs-fifo",
   "type": "library",
   "description": "Laravel SQS FIFO",
   "keywords": [
