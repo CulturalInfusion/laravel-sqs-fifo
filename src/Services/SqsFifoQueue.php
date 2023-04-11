@@ -34,7 +34,7 @@ class SqsFifoQueue extends SqsQueue
      *
      * @var string
      */
-    private string $suffix;
+    protected $suffix;
 
     /**
      * Create a new Amazon SQS queue instance.
