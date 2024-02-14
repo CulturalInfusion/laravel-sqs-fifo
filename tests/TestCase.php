@@ -16,7 +16,7 @@ class TestCase extends BaseTestCase
      *
      * @var Container
      */
-    protected Container $app;
+    protected Container $container;
 
     /**
      * The Queue Capsule instance for the tests.
@@ -49,9 +49,9 @@ class TestCase extends BaseTestCase
         $queue->setAsGlobal();
 
         $this->queue = $queue;
-        $this->app = $queue->getContainer();
+        $this->container = $queue->getContainer();
 
-        $this->app->instance('queue', $queue->getQueueManager());
+        $this->container->instance('queue', $queue->getQueueManager());
     }
 
     /**
@@ -61,7 +61,7 @@ class TestCase extends BaseTestCase
      */
     public function registerServiceProvider(): void
     {
-        $provider = new ServiceProvider($this->app);
+        $provider = new ServiceProvider($this->container);
 
         $provider->register();
     }
@@ -97,7 +97,7 @@ class TestCase extends BaseTestCase
         ], $connection);
 
         $queue->getQueueManager()->addConnector($connection, function () {
-            return new SqsFifoConnector($this->app);
+            return new SqsFifoConnector($this->container);
         });
     }
 

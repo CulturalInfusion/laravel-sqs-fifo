@@ -1,57 +1,57 @@
 {
-  "name": "culturalinfusion/laravel-sqs-fifo",
-  "type": "library",
-  "description": "Laravel SQS FIFO",
-  "keywords": [
-    "laravel",
-    "sqs",
-    "fifo"
-  ],
-  "homepage": "https://culturalinfusion.org.au",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Mohsen Sadeghzade",
-      "email": "mohsen.s@culturalinfusion.org.au"
+    "name": "culturalinfusion/laravel-sqs-fifo",
+    "type": "library",
+    "description": "Laravel SQS FIFO",
+    "keywords": [
+        "laravel",
+        "sqs",
+        "fifo"
+    ],
+    "homepage": "https://culturalinfusion.org.au",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohsen Sadeghzade",
+            "email": "mohsen.s@culturalinfusion.org.au"
+        },
+        {
+            "name": "Ali Bayat",
+            "email": "ali.b@culturalinfusion.org.au"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/culturalinfusion/laravel-sqs-fifo/issues",
+        "source": "https://github.com/culturalinfusion/laravel-sqs-fifo"
     },
-    {
-      "name": "Ali Bayat",
-      "email": "ali.b@culturalinfusion.org.au"
-    }
-  ],
-  "support": {
-    "issues": "https://github.com/culturalinfusion/laravel-sqs-fifo/issues",
-    "source": "https://github.com/culturalinfusion/laravel-sqs-fifo"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "require": {
-    "php": "^7.2 || ^8.0",
-    "aws/aws-sdk-php": "^3.239",
-    "illuminate/queue": ">=4.1"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.5",
-    "orchestra/testbench": "^7.7"
-  },
-  "autoload": {
-    "psr-4": {
-      "CulturalInfusion\\LaravelSqsFifo\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "CulturalInfusion\\LaravelSqsFifo\\Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "CulturalInfusion\\LaravelSqsFifo\\ServiceProvider"
-      ]
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.0",
+        "aws/aws-sdk-php": "^3.239.9",
+        "illuminate/queue": "^10.44.0"
     },
-    "branch-alias": {
-      "dev-master": "1.x-dev"
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "orchestra/testbench": "^8.21"
+    },
+    "autoload": {
+        "psr-4": {
+            "CulturalInfusion\\LaravelSqsFifo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CulturalInfusion\\LaravelSqsFifo\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CulturalInfusion\\LaravelSqsFifo\\ServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
     }
-  }
 }

@@ -34,7 +34,7 @@ class QueueTest extends TestCase
         $client->shouldReceive('sendMessage')->with(Mockery::on($closure))->andReturn($result);
 
         $queue = new SqsFifoQueue($client, '', '', '', $group, '');
-        $queue->setContainer($this->app);
+        $queue->setContainer($this->container);
 
         $this->assertEquals($queue->pushRaw($job), $messageId);
     }
