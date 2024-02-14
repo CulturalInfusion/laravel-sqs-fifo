@@ -28,7 +28,8 @@ class SqsFifoConnector extends SqsConnector
             $config['prefix'] ?? '',
             $config['suffix'] ?? '',
             $config['message_group_id'],
-            $config['queue_name_prefix']
+            $config['queue_name_prefix'],
+            $config['submit_delay'] ?? true,
         );
     }
 }
