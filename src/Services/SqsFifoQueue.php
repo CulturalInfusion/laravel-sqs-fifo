@@ -3,7 +3,7 @@
 namespace CulturalInfusion\LaravelSqsFifo\Services;
 
 use Aws\Sqs\SqsClient;
-use Exception;
+use BadMethodCallException;
 use Illuminate\Queue\SqsQueue;
 
 class SqsFifoQueue extends SqsQueue
@@ -23,7 +23,14 @@ class SqsFifoQueue extends SqsQueue
     protected string $queue_name_prefix;
 
     /**
-     * The queue name suffix.
+     * The flag to check whether to use default delay of the Queue on Messages.
+     *
+     * @var string
+     */
+    protected string $submit_delay;
+
+    /**
+     * The queue name.
      *
      * @var string
      */
@@ -44,6 +51,8 @@ class SqsFifoQueue extends SqsQueue
      * @param  string  $prefix
      * @param  string  $suffix
      * @param  string  $message_group_id
+     * @param  string  $queue_name_prefix
+     * @param  bool    $submit_delay
      * @return void
      */
     public function __construct(
@@ -52,11 +61,13 @@ class SqsFifoQueue extends SqsQueue
         string $prefix = '',
         string $suffix = '',
         string $message_group_id = null,
-        string $queue_name_prefix = ''
+        string $queue_name_prefix = '',
+        bool $submit_delay = true
     ) {
         parent::__construct($sqs, $default, $prefix);
         $this->message_group_id = $message_group_id;
         $this->queue_name_prefix = $queue_name_prefix;
+        $this->submit_delay = $submit_delay;
         $this->suffix = $suffix;
     }
 
@@ -94,12 +105,25 @@ class SqsFifoQueue extends SqsQueue
     }
 
     /**
-     * SQS FIFO does not support DelaySeconds currently.
+     * Since SQS FIFO does not support delay per message, 
+     * this method checks whether to apply delay value of 
+     * the queue on the job, or throw an exception otherwise.
+     * 
+     * @param  \DateTime|int  $delay
+     * @param  string  $job
+     * @param  mixed  $data
+     * @param  string|null  $queue
      *
-     * @throw  Exception
+     * @return mixed
+     *
+     * @throws BadMethodCallException
      */
-    public function later($delay, $job, $data = '', $queue = null): Exception
+    public function later($delay, $job, $data = '', $queue = null): mixed
     {
-        throw new Exception("Cannot support DelaySeconds for FIFO queues.");
+        if ($this->submit_delay) {
+            return $this->push($job, $data, $queue);
+        }
+
+        throw new BadMethodCallException('SQS FIFO does not support DelaySeconds per message.');
     }
 }

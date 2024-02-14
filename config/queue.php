@@ -20,8 +20,9 @@ return [
             'suffix' => env('SQS_SUFFIX'),
             'queue' => env('SQS_QUEUE'),
             'queue_name_prefix' => env('SQS_QUEUE_NAME_PREFIX'),
-            'message_group_id' => env('SQS_MESSAGE_GROUP_ID', env('SQS_PREFIX') . "/" . env('SQS_QUEUE')),
+            'message_group_id' => env('SQS_MESSAGE_GROUP_ID', env('SQS_ENDPOINT') . "/" . env('SQS_QUEUE')),
             'region' => env('AWS_DEFAULT_REGION', 'ap-southeast-2'),
+            'submit_delay' => env('SQS_SUBMIT_DELAY', true) // Whether to use default delay of a Queue on Messages
         ]
     ]
 ];
