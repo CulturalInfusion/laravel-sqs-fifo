@@ -30,6 +30,5 @@ jobs:
             echo "$CI_PULL_REQUEST_TITLE" | npx commitlint
         
             # Functional Tests
-            cd ..
             composer install --prefer-dist
             ./vendor/bin/phpunit
