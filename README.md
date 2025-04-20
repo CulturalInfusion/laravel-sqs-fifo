@@ -5,12 +5,21 @@
 ## Table of contents
 
 * [Intro](#intro)
+* [Version Compatibility](#version-compatibility)
 * [How to use](#how-to-use)
 * [Testing](#testing)
 
 ## Intro
 
 Laravel SQS FIFO provides a queue driver for Laravel.
+
+## Version Compatibility
+
+| Package Version | Laravel Version |
+|----------------|-----------------|
+| 2.x           | Laravel 11.x, 12.x |
+| 1.x           | Laravel 8.x, 9.x, 10.x |
+
 
 ## How to use
 
